@@ -7,6 +7,16 @@ class DetailMealScreen extends StatelessWidget {
   // buat var untuk inisialisai routes nya
   static const routesName = '/meal-detail';
 
+  /**
+   * membuat function untuk menambahkan ke favorite nya . yang fungsi dari func nya ini saama dengan function
+   * togglefav dan isFav di main.dart
+   */
+
+  final Function toggleFavorite ;
+  final Function  isFavorite;
+
+  DetailMealScreen(this.toggleFavorite, this.isFavorite);
+
   @override
   Widget build(BuildContext context) {
     //buat var untuk menampung argument
@@ -61,6 +71,12 @@ class DetailMealScreen extends StatelessWidget {
               )
             )
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed:  () => toggleFavorite(mealId),
+        child: Icon(
+          isFavorite(mealId) ? Icons.favorite : Icons.favorite_border_outlined , color: Colors.pinkAccent,
         ),
       ),
     );

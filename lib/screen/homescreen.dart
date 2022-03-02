@@ -1,11 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:food_app_10/model/meal.dart';
 import 'package:food_app_10/screen/categories_screen.dart';
 
 import 'favorite_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+
+  // buatlah sebuah var untuk memasukan parameter dari fav ke home ini
+  final List<Meal> favoriteMeals;
+  HomeScreen(this.favoriteMeals);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -23,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         'title' : 'Categories Screen'
       },
       {
-        'pages' : FavoriteScreen(),
+        'pages' : FavoriteScreen(widget.favoriteMeals),
         'title' : 'Your Favorite'
       }
     ];

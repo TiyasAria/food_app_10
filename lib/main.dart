@@ -20,6 +20,26 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   // membuat data untuk list data favoritenya yang berupa list kosong,
   List<Meal> _favoriteMeals = [];
+  // func untuk berfungsi index/ jumlah item fav nya
+  void _toggleFavorite(String mealId){
+    final existingIndex = _favoriteMeals.indexWhere((meal) => meal.id == mealId);
+    if(existingIndex >= 0){
+      setState(() {
+        _favoriteMeals.removeAt(existingIndex);
+      });
+    } else{
+      setState(() {
+        _favoriteMeals.add(meal.firstWhere((meal) => meal.id == mealId));
+      });
+    }
+  }
+
+  // untuk ubah colornya
+  bool _isfavorite(String mealId){
+    return _favoriteMeals.any((meal) => meal.id == mealId);
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +70,9 @@ class _MyAppState extends State<MyApp> {
       // home: const HomeScreen(),
       initialRoute: '/',
       routes: {
-        '/' : (context) => HomeScreen(),
+        '/' : (context) => HomeScreen(_favoriteMeals),
         CategoriesMealScreen.routeName : (context) => CategoriesMealScreen(),
-        DetailMealScreen.routesName : (context) => DetailMealScreen()
+        DetailMealScreen.routesName : (context) => DetailMealScreen(_toggleFavorite, _isfavorite),
       },
     );
   }
